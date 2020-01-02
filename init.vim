@@ -86,6 +86,7 @@ Plug 'neomake/neomake'
 let g:neomake_python_enabled_makers = ['pylint']
 
 Plug 'tmhedberg/SimpylFold'
+Plug 'Konfekt/FastFold'
 
 Plug 'ntpeters/vim-better-whitespace'
 
