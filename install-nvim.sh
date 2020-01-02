@@ -20,6 +20,14 @@ chmod +x nvim.appimage
 echo "alias nvim=$INSTALL_DIR/nvim.appimage" >> $HOME/"$RC_FILE"
 source $HOME/"$RC_FILE"
 
+# Install vim-plug
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+pip3 install --user pynvim jedi # Python code completion
+pip3 install --user yapf # Python code-formatting with neoformat
+pip3 install --user pylint # Python linting with neomake
+
 # Make neovim-config directory
 mkdir -p $HOME/.config/nvim
 cd $HOME/.config/nvim
