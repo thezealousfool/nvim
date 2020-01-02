@@ -15,10 +15,12 @@ if [ ! -d "$INSTALL_DIR" ]; then
 fi
 
 cd "$INSTALL_DIR"
-curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-chmod +x nvim.appimage
-echo -e "alias nvim=$INSTALL_DIR/nvim.appimage\n" >> $HOME/"$RC_FILE"
-source $HOME/"$RC_FILE"
+if [ ! -f "nvim.appimage" ]; then
+    curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    chmod +x nvim.appimage
+    echo -e "alias nvim=$INSTALL_DIR/nvim.appimage\n" >> $HOME/"$RC_FILE"
+    source $HOME/"$RC_FILE"
+fi
 
 # Install vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -29,9 +31,12 @@ pip3 install --user yapf # Python code-formatting with neoformat
 pip3 install --user pylint # Python linting with neomake
 
 # Make neovim-config directory
-if [ ! -d "$HOME/.config/nvim ]; then
+if [ ! -d "$HOME/.config/nvim" ]; then
     mkdir -p $HOME/.config/nvim
 fi
 cd $HOME/.config/nvim
-git clone https://github.com/thezealousfool/nvim.git .
-
+if [ -f "$HOME/.config/nvim/init.vim" ]; then
+    git pull
+else
+    git clone git@github.com:thezealousfool/nvim.git .
+fi
