@@ -17,7 +17,7 @@ fi
 cd "$INSTALL_DIR"
 curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 chmod +x nvim.appimage
-echo "alias nvim=$INSTALL_DIR/nvim.appimage" >> $HOME/"$RC_FILE"
+echo -e "alias nvim=$INSTALL_DIR/nvim.appimage\n" >> $HOME/"$RC_FILE"
 source $HOME/"$RC_FILE"
 
 # Install vim-plug

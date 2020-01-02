@@ -1,6 +1,8 @@
 set history=500
 filetype plugin on
 filetype indent on
+set number
+set relativenumber
 set ignorecase
 set smartcase
 set hlsearch
@@ -82,5 +84,9 @@ call neomake#configure#automake('nrwi', 500)
 Plug 'tmhedberg/SimpylFold'
 
 Plug 'ntpeters/vim-better-whitespace'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'tpope/vim-eunuch'
 
 call plug#end()
