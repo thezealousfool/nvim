@@ -18,9 +18,11 @@ set tabstop=2
 set ai " Auto indent
 set si " Smart indent
 set wrap " Wrap lines
+set colorcolumn=80,120
 let mapleader = " "
 
 nmap <leader>w :w<cr>
+nmap <leader>q :q<cr>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -42,7 +44,9 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+map <leader>t<leader> :tabnext<cr>
+map <leader>tl :tabnext<cr>
+map <leader>th :tabprevious<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -52,7 +56,7 @@ let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit! " :W sudo saves the file 
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit! " :W sudo saves the file
 
 
 call plug#begin('~/.local/share/nvim/plugged')
@@ -65,6 +69,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'preservim/nerdcommenter'
 
@@ -92,3 +97,12 @@ call plug#end()
 
 call neomake#configure#automake('nrwi', 500)
 
+" fzf
+map <leader>f :Files<cr>
+
+" fugitive
+map <leader>gs :Gstatus<cr>
+map <leader>gpl :Gpull<cr>
+map <leader>gps :Gpush<cr>
+map <leader>gd :Gdiff<cr>
+map <leader>ga. :Git add .<cr>
