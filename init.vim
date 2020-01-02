@@ -79,7 +79,6 @@ let g:jedi#use_splits_not_buffers = "right" " open the go-to function in split, 
 
 Plug 'neomake/neomake'
 let g:neomake_python_enabled_makers = ['pylint']
-call neomake#configure#automake('nrwi', 500)
 
 Plug 'tmhedberg/SimpylFold'
 
@@ -90,3 +89,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 
 call plug#end()
+
+call neomake#configure#automake('nrwi', 500)
+
