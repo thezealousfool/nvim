@@ -23,8 +23,10 @@ if [ ! -f "nvim.appimage" ]; then
 fi
 
 # Install vim-plug
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if [ ! -f "~/.local/share/nvim/site/autoload/plug.vim" ]; then
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
 pip3 install --user pynvim jedi # Python code completion
 pip3 install --user yapf # Python code-formatting with neoformat
