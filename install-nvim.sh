@@ -29,7 +29,9 @@ pip3 install --user yapf # Python code-formatting with neoformat
 pip3 install --user pylint # Python linting with neomake
 
 # Make neovim-config directory
-mkdir -p $HOME/.config/nvim
+if [ ! -d "$HOME/.config/nvim ]; then
+    mkdir -p $HOME/.config/nvim
+fi
 cd $HOME/.config/nvim
 git clone https://github.com/thezealousfool/nvim.git .
 
