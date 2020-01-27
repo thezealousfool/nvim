@@ -94,6 +94,12 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'tpope/vim-eunuch'
 
+Plug 'lepture/vim-jinja'
+
+Plug 'cakebaker/scss-syntax.vim'
+
+Plug 'mattn/emmet-vim'
+
 call plug#end()
 
 call neomake#configure#automake('nrwi', 500)
@@ -107,3 +113,9 @@ map <leader>gpl :Gpull<cr>
 map <leader>gps :Gpush<cr>
 map <leader>gd :Gdiff<cr>
 map <leader>ga. :Git add .<cr>
+
+" nunjucks
+au BufNewFile,BufRead *.njk set ft=jinja
+
+" Escape works as should in terminal mode
+tnoremap <Esc> <C-\><C-n>
