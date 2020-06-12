@@ -18,7 +18,6 @@ set tabstop=2
 set ai " Auto indent
 set si " Smart indent
 set wrap " Wrap lines
-set colorcolumn=80,120
 let mapleader = " "
 
 nmap <leader>w :w<cr>
@@ -82,9 +81,6 @@ Plug 'davidhalter/jedi-vim'
 let g:jedi#completions_enabled = 0 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#use_splits_not_buffers = "right" " open the go-to function in split, not another buffer
 
-Plug 'neomake/neomake'
-let g:neomake_python_enabled_makers = ['pylint']
-
 Plug 'tmhedberg/SimpylFold'
 Plug 'Konfekt/FastFold'
 
@@ -100,9 +96,15 @@ Plug 'cakebaker/scss-syntax.vim'
 
 Plug 'mattn/emmet-vim'
 
-call plug#end()
+Plug 'dense-analysis//ale'
 
-call neomake#configure#automake('nrwi', 500)
+Plug 'racer-rust/vim-racer'
+
+Plug 'sebastianmarkow/deoplete-rust'
+let g:deoplete#sources#rust#racer_binary='which racer'
+let g:deoplete#sources#rust#rust_source_path='/home/vroy/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
+
+call plug#end()
 
 " fzf
 map <leader>f :Files<cr>
@@ -119,3 +121,16 @@ au BufNewFile,BufRead *.njk set ft=jinja
 
 " Escape works as should in terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" Rust
+let g:ale_fixers = {
+  \'rust': ['rustfmt'],
+  \'javascript': ['eslint'],
+  \'python': ['yapf'],
+  \}
+let g:ale_linters = {
+  \'rust': ['rls'],
+  \'javascript': ['eslint'],
+  \'python': ['pylint'],
+  \}
+let g:ale_fix_on_save = 1
