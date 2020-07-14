@@ -20,6 +20,21 @@ set si " Smart indent
 set wrap " Wrap lines
 let mapleader = " "
 
+" Lets you undo on files even after closing and reopenning
+set undodir=~/.local/.vimdid
+set undofile
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+set shortmess+=c
+
+" center search results
+nnoremap <silent> n  nzz
+nnoremap <silent> N  Nzz
+nnoremap <silent> *  *zz
+nnoremap <silent> #  #zz
+nnoremap <silent> g* g*zz
+
 nmap <leader>w :w<cr>
 nmap <leader>q :q<cr>
 
@@ -52,7 +67,7 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <leader><leader> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit! " :W sudo saves the file
@@ -60,49 +75,36 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit! " :W sudo saves the f
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
+Plug 'machakann/vim-highlightedyank' " Highlight what has been yanked
 
-Plug 'zchee/deoplete-jedi'
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+Plug 'airblade/vim-rooter' " Auto change dir to the root of the project
+let g:rooter_patterns = ['.git/', 'Cargo.toml', 'package.json']
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim' " Fuzzy file finder
 
-Plug 'preservim/nerdcommenter'
-
-Plug 'sbdchd/neoformat'
-let g:neoformat_basic_format_align = 1 " Enable alignment
-let g:neoformat_basic_format_retab = 1 " Enable tab to spaces conversion
-let g:neoformat_basic_format_trim = 1 " Enable trimmming of trailing whitespace
-
-Plug 'davidhalter/jedi-vim'
-let g:jedi#completions_enabled = 0 " disable autocompletion, cause we use deoplete for completion
-let g:jedi#use_splits_not_buffers = "right" " open the go-to function in split, not another buffer
-
-Plug 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold' " Text folding
 Plug 'Konfekt/FastFold'
 
-Plug 'ntpeters/vim-better-whitespace'
+Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace
 
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' " Git client
 
-Plug 'tpope/vim-eunuch'
-
-Plug 'lepture/vim-jinja'
+Plug 'tpope/vim-eunuch' " UNIX shell commands inside vim
 
 Plug 'cakebaker/scss-syntax.vim'
 
 Plug 'mattn/emmet-vim'
 
-Plug 'dense-analysis//ale'
+Plug 'dense-analysis/ale' " Asynchronous lint engine
 
-Plug 'racer-rust/vim-racer'
+Plug 'ncm2/ncm2' " Autocomplete
+Plug 'roxma/nvim-yarp' " Required by ncm2
+Plug 'ncm2/ncm2-bufword' " Completion for words in current buffer
+Plug 'ncm2/ncm2-path' " Path Completion
+Plug 'ncm2/ncm2-jedi' " Python autocomplete
 
-Plug 'sebastianmarkow/deoplete-rust'
-let g:deoplete#sources#rust#racer_binary='which racer'
-let g:deoplete#sources#rust#rust_source_path='/home/vroy/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
+Plug 'rust-lang/rust.vim' " Rust
 
 call plug#end()
 
@@ -122,7 +124,7 @@ au BufNewFile,BufRead *.njk set ft=jinja
 " Escape works as should in terminal mode
 tnoremap <Esc> <C-\><C-n>
 
-" Rust
+" ALE
 let g:ale_fixers = {
   \'rust': ['rustfmt'],
   \'javascript': ['eslint'],
@@ -134,3 +136,22 @@ let g:ale_linters = {
   \'python': ['pylint'],
   \}
 let g:ale_fix_on_save = 1
+
+" Completion
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+" tab to select
+" don't hijack enter key
+inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
+inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")
+
+" Ripgrep (install https://github.com/BurntSushi/ripgrep#installation)
+if executable('rg')
+  set grepprg=rg\ --no-heading\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+endif
+
+" LSP settings (mostly from nvim help)
+nnoremap <silent> gd        <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-space> <cmd>lua vim.lsp.buf.signature_help()<CR>
