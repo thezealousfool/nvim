@@ -106,6 +106,9 @@ Plug 'ncm2/ncm2-jedi' " Python autocomplete
 
 Plug 'rust-lang/rust.vim' " Rust
 
+Plug 'ncm2/ncm2-ultisnips' " ncm2 integration with snippets
+Plug 'SirVer/ultisnips' " Snippets
+
 call plug#end()
 
 " fzf
@@ -142,7 +145,7 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 " tab to select
 " don't hijack enter key
-inoremap <expr><Tab> (pumvisible()?(empty(v:completed_item)?"\<C-n>":"\<C-y>"):"\<Tab>")
+inoremap <expr><Tab> (pumvisible()?"\<C-n>":"\<Tab>")
 inoremap <expr><CR> (pumvisible()?(empty(v:completed_item)?"\<CR>\<CR>":"\<C-y>"):"\<CR>")
 
 " Ripgrep (install https://github.com/BurntSushi/ripgrep#installation)
@@ -156,6 +159,12 @@ nnoremap <silent> gd        <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gD        <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> <c-space> <cmd>lua vim.lsp.buf.signature_help()<CR>
 
+" UltiSnip Snippet settings
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger	= "<Tab>"
+let g:UltiSnipsJumpBackwardTrigger	= "<S-Tab>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 
 
 
