@@ -2,7 +2,6 @@ set history=500
 filetype plugin on
 filetype indent on
 set number
-set relativenumber
 set ignorecase
 set smartcase
 set hlsearch
@@ -113,6 +112,7 @@ call plug#end()
 
 " fzf
 map <leader>f :Files<cr>
+map <leader>b :Buffers<cr>
 
 " fugitive
 map <leader>gs :Gstatus<cr>
