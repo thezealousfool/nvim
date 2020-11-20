@@ -82,6 +82,8 @@ let g:rooter_patterns = ['.git/', 'Cargo.toml', 'package.json']
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " Fuzzy file finder
 
+Plug 'mcchrish/nnn.vim' " nnn file explorer
+
 Plug 'tmhedberg/SimpylFold' " Text folding
 Plug 'Konfekt/FastFold'
 
@@ -113,6 +115,10 @@ call plug#end()
 " fzf
 map <leader>f :Files<cr>
 map <leader>b :Buffers<cr>
+
+" nnn
+let g:nnn#set_default_mappings = 0
+map <leader>e :NnnPicker %:p:h<cr>
 
 " fugitive
 map <leader>gs :Gstatus<cr>
