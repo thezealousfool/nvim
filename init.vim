@@ -35,19 +35,20 @@ nnoremap <silent> #  #zz
 nnoremap <silent> g* g*zz
 
 nmap <leader>w :w<cr>
-nmap <leader>q :q<cr>
+function s:CloseBufferOrWindow() abort
+  if bufnr() == 1
+    q
+  else
+    bd
+  endif
+endfunction
+nmap <silent> <leader>q :call <SID>CloseBufferOrWindow()<cr>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-
-" Close the current buffer
-map <leader>bc :Bclose<cr>:tabclose<cr>gT
-
-" Close all the buffers
-map <leader>ba :bufdo bc<cr>
 
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
@@ -118,6 +119,7 @@ map <leader>b :Buffers<cr>
 
 " nnn
 let g:nnn#set_default_mappings = 0
+let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
 map <leader>e :NnnPicker %:p:h<cr>
 
 " fugitive
@@ -129,9 +131,6 @@ map <leader>ga. :Git add .<cr>
 
 " nunjucks
 au BufNewFile,BufRead *.njk set ft=jinja
-
-" Escape works as should in terminal mode
-tnoremap <Esc> <C-\><C-n>
 
 " ALE
 let g:ale_fixers = {
