@@ -90,11 +90,13 @@ Plug 'Konfekt/FastFold'
 
 Plug 'ntpeters/vim-better-whitespace' " Highlight trailing whitespace
 
-Plug 'tpope/vim-fugitive' " Git client
+Plug 'tpope/vim-repeat' " repeat.vim
 
 Plug 'tpope/vim-eunuch' " UNIX shell commands inside vim
 
 Plug 'cakebaker/scss-syntax.vim'
+
+Plug 'justinmk/vim-sneak' " Easy jumping with sneak
 
 Plug 'mattn/emmet-vim'
 
@@ -121,13 +123,6 @@ map <leader>b :Buffers<cr>
 let g:nnn#set_default_mappings = 0
 let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
 map <leader>e :NnnPicker %:p:h<cr>
-
-" fugitive
-map <leader>gs :Gstatus<cr>
-map <leader>gpl :Gpull<cr>
-map <leader>gps :Gpush<cr>
-map <leader>gd :Gdiff<cr>
-map <leader>ga. :Git add .<cr>
 
 " nunjucks
 au BufNewFile,BufRead *.njk set ft=jinja
