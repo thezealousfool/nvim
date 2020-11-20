@@ -36,7 +36,9 @@ nnoremap <silent> g* g*zz
 
 nmap <leader>w :w<cr>
 function s:CloseBufferOrWindow() abort
-  if bufnr() == 1
+  let bufnrs = range(1, bufnr("$"))
+  call filter(bufnrs, {_, v -> buflisted(v)})
+  if len(bufnrs) == 1
     q
   else
     bd
