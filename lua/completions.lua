@@ -65,14 +65,6 @@ function M:setup()
       end
     },
   })
-
-  local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  local lspconfig = require("lspconfig")
-  for k, _ in pairs(_G.lsp_servers) do
-    lspconfig[k].setup {
-      capabilities = capabilities
-    }
-  end
 end
 
 return M

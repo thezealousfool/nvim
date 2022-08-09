@@ -44,7 +44,6 @@ function M:load()
     vim.keymap.set("n", "<leader>sw", telescope.live_grep, opts)
     vim.keymap.set("v", "<leader>sw", function()
       local text = _G.selected_text()
-      print(text)
       if text then
         telescope.grep_string({ search = text })
       end
@@ -53,7 +52,6 @@ function M:load()
     vim.keymap.set("n", "<leader>sb", telescope.current_buffer_fuzzy_find, opts)
     vim.keymap.set("v", "<leader>sb", function()
       local text = _G.selected_text()
-      print(text)
       if text then
         telescope.current_buffer_fuzzy_find({ search = text })
       end
