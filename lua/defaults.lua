@@ -40,6 +40,7 @@ local options = {
   shortmess = "atI", -- abbreviate, truncate, disable intro message
   laststatus = 0, -- disable status line
   ruler = false, -- disable line and column number counters
+  colorcolumn = "80,120", -- highlight the 80th column
 }
 
 local headless_options = {

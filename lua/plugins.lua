@@ -95,6 +95,20 @@ function M:load()
       end
     }
 
+    -- Auto match character pairs
+    use {
+      "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
+    }
+
+    -- Commenting
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if Packer_bootstrap then
