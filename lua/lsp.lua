@@ -45,6 +45,20 @@ function M:setup()
       flags = lsp_flags,
       capabilities = _common_capabilities,
     },
+    efm = {
+      init_options = { documentFormatting = true },
+      settings = {
+        rootMarkers = { ".git/", "requirements.txt" },
+        languages = {
+          python = {
+            {
+              formatCommand = "black --quiet -",
+              formatStdin = true
+            }
+          }
+        }
+      },
+    },
     rust_analyzer = {
       on_attach = on_attach,
       flags = lsp_flags,
