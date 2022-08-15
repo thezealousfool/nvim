@@ -53,8 +53,15 @@ function M:load()
       requires = {
         -- LSP
         {
-          "neovim/nvim-lspconfig", config = function()
+          "neovim/nvim-lspconfig",
+          config = function()
             require("lsp"):setup()
+          end
+        },
+        {
+          "jose-elias-alvarez/null-ls.nvim",
+          config = function()
+            require("nullls"):setup()
           end
         },
         -- Snippets
@@ -103,7 +110,7 @@ function M:load()
 
     -- Commenting
     use {
-      'numToStr/Comment.nvim',
+      "numToStr/Comment.nvim",
       config = function()
         require('Comment').setup()
       end

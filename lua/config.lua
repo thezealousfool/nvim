@@ -58,6 +58,7 @@ function M:load()
   require("keybinds"):load()
   require("plugins"):load()
   require("autocmds"):setup()
+  require("project"):setup()
 end
 
 function M:reload()
