@@ -26,8 +26,8 @@ function M:setup()
       ["<Esc>"] = cmp.mapping.abort(),
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
       ["<C-n>"] = cmp.mapping(function(fallback)
-        if luasnip.jumpable() then
-          luasnip.jump()
+        if luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
         else
           fallback()
         end
