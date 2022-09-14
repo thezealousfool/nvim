@@ -56,7 +56,7 @@ local function snippets()
      *
      * Description : {}
      *
-     * Author  : Vivek Roy
+     * Author  : Vivek Roy <{}>
      * Date    : {}
      *
      *****/
@@ -64,7 +64,8 @@ local function snippets()
     ]], {
       d(1, file_name),
       i(2),
-      d(3, date_input, {}, { user_args = { "%m/%d/%Y" } }),
+      i(3, "vivek_roy@apple.com"),
+      d(4, date_input, {}, { user_args = { "%m/%d/%Y" } }),
       i(0),
     }))
 
