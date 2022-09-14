@@ -116,6 +116,20 @@ function M:load()
       end
     }
 
+    -- Git signs
+    use {
+      "lewis6991/gitsigns.nvim",
+      config = function()
+        require("gitsigns").setup()
+      end
+    }
+    use {
+      "lewis6991/foldsigns.nvim",
+      config = function()
+        require("foldsigns").setup()
+      end
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if Packer_bootstrap then
