@@ -20,6 +20,14 @@ local function snippets()
         {}({})
     ]], { rep(1), i(3), i(0), i(1, "main"), i(2) })),
 
+    s("loggingBasicConfig", fmt([[
+    logging.basicConfig(
+        format="%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s",
+        level= os.environ.get("LOGLEVEL", "INFO").upper(),
+        datefmt="%H:%M:%S",
+    )
+    ]], {})),
+
   })
 
 end
