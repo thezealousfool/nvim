@@ -97,25 +97,33 @@ function M.on_attach(client, bufn)
 end
 
 function M:common_capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.offsetEncoding = { "utf-16" }
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
-    },
-  }
-
   local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
   if status_ok then
-    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+    local capabilities = cmp_nvim_lsp.default_capabilities()
+    capabilities.offsetEncoding = { "utf-16" }
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+      properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+      },
+    }
+    return capabilities
   else
     print("cmp_nvim_lsp not found")
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.offsetEncoding = { "utf-16" }
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+      properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+      },
+    }
+    return {}
   end
-
-  return capabilities
 end
 
 M.lsp_flags = {
