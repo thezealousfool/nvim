@@ -69,11 +69,11 @@ end
 
 local function formatting(client, bufnr)
   if client.name ~= "null-ls" then
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
     return
   end
-  if not client.resolved_capabilities.document_formatting then
+  if not client.server_capabilities.documentFormattingProvider then
     print("Formatting not supported")
     return
   end
@@ -82,7 +82,7 @@ local function formatting(client, bufnr)
     group = lsp_format_grp,
     buffer = bufnr,
     callback = function()
-      vim.lsp.buf.formatting_sync()
+      vim.lsp.buf.format()
     end,
   })
 end
