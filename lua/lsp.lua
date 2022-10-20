@@ -139,7 +139,7 @@ function M:setup()
       flags = M.lsp_flags,
       capabilities = _common_capabilities,
     },
-    pyright = {
+    pylsp = {
       on_attach = M.on_attach,
       flags = M.lsp_flags,
       capabilities = _common_capabilities,

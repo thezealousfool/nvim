@@ -23,6 +23,8 @@ function M:setup()
           args = {
             "--stdin-filename",
             "$FILENAME",
+            "-l",
+            "80",
             "--quiet",
             "-",
           },
