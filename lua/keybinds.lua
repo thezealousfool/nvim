@@ -29,9 +29,17 @@ local M = {}
 function M:load()
   local opts = { noremap = true }
   vim.g.mapleader = " "
+
   vim.keymap.set("n", "<leader>w", "<cmd> w<cr>", opts)
   vim.keymap.set("n", "<leader>q", "<cmd> q<cr>", opts)
   vim.keymap.set("n", "<leader>c", "<cmd> bd<cr>", opts)
+
+  vim.keymap.set("n", "<C-J>", "<C-W><C-J>", opts)
+  vim.keymap.set("n", "<C-K>", "<C-W><C-K>", opts)
+  vim.keymap.set("n", "<C-L>", "<C-W><C-L>", opts)
+  vim.keymap.set("n", "<C-H>", "<C-W><C-H>", opts)
+  vim.keymap.set("n", "<C-\\>", "<C-W><C-W>", opts)
+
   local status_ok, telescope = pcall(require, "telescope.builtin")
   if status_ok then
     vim.keymap.set("n", "<leader>f", telescope.find_files, opts)
