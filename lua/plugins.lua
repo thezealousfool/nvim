@@ -112,7 +112,7 @@ function M:load()
     use {
       "numToStr/Comment.nvim",
       config = function()
-        require('Comment').setup()
+        require("Comment").setup()
       end
     }
 
@@ -123,6 +123,20 @@ function M:load()
         require("gitsigns").setup()
       end
     }
+
+    -- Folding
+    use {
+      "kevinhwang91/nvim-ufo",
+      event = { "BufRead" },
+      requires = "kevinhwang91/promise-async",
+      config = function()
+        require("ufo").setup()
+
+        vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+        vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+      end
+    }
+
     use {
       "lewis6991/foldsigns.nvim",
       config = function()

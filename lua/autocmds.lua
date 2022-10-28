@@ -1,10 +1,10 @@
 local M = {}
 
 function M:setup()
-  local fold_group = vim.api.nvim_create_augroup("Fold", { clear = true })
-  vim.api.nvim_create_autocmd({ "FileType", "BufWritePost" }, {
+  local yank_highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+  vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     callback = function()
-      vim.cmd("normal zx")
+      require("vim.highlight").on_yank { higroup = "Search", timeout = 100 }
     end,
     group = fold_group,
   })
