@@ -142,9 +142,17 @@ function M:setup()
     pylsp = {
       on_attach = M.on_attach,
       flags = M.lsp_flags,
+      autostart = true,
+      capabilities = _common_capabilities,
+    },
+    pyright = {
+      on_attach = M.on_attach,
+      flags = M.lsp_flags,
+      autostart = false,
       capabilities = _common_capabilities,
     },
     rust_analyzer = {
+      cmd = { "rustup", "run", "stable", "rust-analyzer" },
       on_attach = M.on_attach,
       flags = M.lsp_flags,
       capabilities = _common_capabilities,
