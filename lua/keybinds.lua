@@ -34,11 +34,14 @@ function M:load()
   vim.keymap.set("n", "<leader>q", "<cmd> q<cr>", opts)
   vim.keymap.set("n", "<leader>c", "<cmd> bd<cr>", opts)
 
-  vim.keymap.set("n", "<C-J>", "<C-W><C-J>", opts)
-  vim.keymap.set("n", "<C-K>", "<C-W><C-K>", opts)
-  vim.keymap.set("n", "<C-L>", "<C-W><C-L>", opts)
-  vim.keymap.set("n", "<C-H>", "<C-W><C-H>", opts)
-  vim.keymap.set("n", "<C-\\>", "<C-W><C-W>", opts)
+  local nav_ok, nav = pcall(require, "nvim-tmux-navigation")
+  if nav_ok then
+    vim.keymap.set("n", "<C-H>", nav.NvimTmuxNavigateLeft, opts)
+    vim.keymap.set("n", "<C-J>", nav.NvimTmuxNavigateDown, opts)
+    vim.keymap.set("n", "<C-K>", nav.NvimTmuxNavigateUp, opts)
+    vim.keymap.set("n", "<C-L>", nav.NvimTmuxNavigateRight, opts)
+    vim.keymap.set("n", "<C-\\>", nav.NvimTmuxNavigateLastActive, opts)
+  end
 
   local status_ok, telescope = pcall(require, "telescope.builtin")
   if status_ok then
@@ -64,8 +67,6 @@ function M:load()
         telescope.current_buffer_fuzzy_find({ search = text })
       end
     end, opts)
-    vim.keymap.set("n", "<leader>gb", telescope.git_branches, opts)
-    vim.keymap.set("n", "<leader>gc", telescope.git_commits, opts)
     vim.keymap.set("n", "<leader>gs", telescope.git_status, opts)
   end
 end

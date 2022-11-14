@@ -144,6 +144,8 @@ function M:load()
       end
     }
 
+    use { "alexghergh/nvim-tmux-navigation" }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if Packer_bootstrap then
