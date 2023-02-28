@@ -68,6 +68,7 @@ function M:load()
       end
     end, opts)
     vim.keymap.set("n", "<leader>gs", telescope.git_status, opts)
+    vim.keymap.set("n", "<leader>ls", telescope.lsp_document_symbols, opts)
   end
 end
 

@@ -66,6 +66,8 @@ function M:load()
       vim.opt[k] = v
     end
   end
+
+  vim.g.c_syntax_for_h = 1
 end
 
 return M

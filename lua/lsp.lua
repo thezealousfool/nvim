@@ -99,17 +99,7 @@ end
 function M:common_capabilities()
   local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
   if status_ok then
-    local capabilities = cmp_nvim_lsp.default_capabilities()
-    capabilities.offsetEncoding = { "utf-16" }
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities.textDocument.completion.completionItem.resolveSupport = {
-      properties = {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
-      },
-    }
-    return capabilities
+    return cmp_nvim_lsp.default_capabilities()
   else
     print("cmp_nvim_lsp not found")
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -122,7 +112,7 @@ function M:common_capabilities()
         "additionalTextEdits",
       },
     }
-    return {}
+    return capabilities
   end
 end
 
@@ -142,13 +132,13 @@ function M:setup()
     pylsp = {
       on_attach = M.on_attach,
       flags = M.lsp_flags,
-      autostart = true,
+      autostart = false,
       capabilities = _common_capabilities,
     },
     pyright = {
       on_attach = M.on_attach,
       flags = M.lsp_flags,
-      autostart = false,
+      autostart = true,
       capabilities = _common_capabilities,
     },
     rust_analyzer = {
@@ -160,6 +150,11 @@ function M:setup()
         ["rust-analyzer"] = {}
       }
     },
+    tsserver = {
+      on_attach = M.on_attach,
+      flags = M.lsp_flags,
+      capabilities = _common_capabilities,
+    }
   }
 
   lsp_handlers()

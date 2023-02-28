@@ -2,9 +2,6 @@ local M = {}
 
 function M:setup()
   local null_ls = require("null-ls")
-  local h = require("null-ls.helpers")
-  local methods = require("null-ls.methods")
-  local FORMATTING = methods.internal.FORMATTING
   local lsp = require("lsp")
   local _common_capabilities = lsp:common_capabilities()
 
@@ -14,76 +11,27 @@ function M:setup()
     capabilities = _common_capabilities,
     sources = {
       -- python (black)
-      h.make_builtin({
-        name = "black",
-        method = FORMATTING,
-        filetypes = { "python" },
-        generator_opts = {
-          command = "black",
-          args = {
-            "--stdin-filename",
-            "$FILENAME",
-            "-l",
-            "80",
-            "--quiet",
-            "-",
-          },
-          to_stdin = true,
-        },
-        factory = h.formatter_factory,
-      }),
+      null_ls.builtins.formatting.black,
 
       -- python (isort)
-      h.make_builtin({
-        name = "isort",
-        method = FORMATTING,
-        filetypes = { "python" },
-        generator_opts = {
-          command = "isort",
-          args = {
-            "--stdout",
-            "--filename",
-            "$FILENAME",
-            "-",
-          },
-          to_stdin = true,
-        },
-        factory = h.formatter_factory,
-      }),
+      null_ls.builtins.formatting.isort,
+
+      -- python (pycodestyle)
+      null_ls.builtins.diagnostics.pycodestyle,
+
+      -- python (ruff)
+      null_ls.builtins.diagnostics.ruff,
+      null_ls.builtins.formatting.ruff,
 
       -- c (clang-format)
-      h.make_builtin({
-        name = "clang_format",
-        method = { FORMATTING },
-        filetypes = { "c", "cpp", "cs", "java", "cuda" },
-        generator_opts = {
-          command = "clang-format",
-          args = h.range_formatting_args_factory(
-            { "-assume-filename", "$FILENAME" },
-            "--offset",
-            "--length",
-            { use_length = true }
-          ),
-          to_stdin = true,
-        },
-        factory = h.formatter_factory,
-      }),
+      null_ls.builtins.formatting.clang_format,
 
       -- rust
-      h.make_builtin({
-        name = "rustfmt",
-        method = FORMATTING,
-        filetypes = { "rust" },
-        generator_opts = {
-          command = "rustfmt",
-          args = {
-            "--emit=stdout",
-            "--edition=2021",
-          },
-          to_stdin = true,
-        },
-        factory = h.formatter_factory,
-      })
+      null_ls.builtins.formatting.rustfmt,
+
+      -- typescript
+      null_ls.builtins.code_actions.eslint_d,
+      null_ls.builtins.formatting.prettier,
     }
   }
 end
