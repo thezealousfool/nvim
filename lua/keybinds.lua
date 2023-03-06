@@ -34,6 +34,11 @@ function M:load()
   vim.keymap.set("n", "<leader>q", "<cmd> q<cr>", opts)
   vim.keymap.set("n", "<leader>c", "<cmd> bd<cr>", opts)
 
+  vim.keymap.set({"n", "i"}, "<up>", "<nop>", opts)
+  vim.keymap.set({"n", "i"}, "<down>", "<nop>", opts)
+  vim.keymap.set({"n", "i"}, "<left>", "<nop>", opts)
+  vim.keymap.set({"n", "i"}, "<right>", "<nop>", opts)
+
   local nav_ok, nav = pcall(require, "nvim-tmux-navigation")
   if nav_ok then
     vim.keymap.set("n", "<C-H>", nav.NvimTmuxNavigateLeft, opts)
