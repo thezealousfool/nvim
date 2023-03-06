@@ -16,9 +16,6 @@ function M:setup()
       -- python (isort)
       null_ls.builtins.formatting.isort,
 
-      -- python (pycodestyle)
-      null_ls.builtins.diagnostics.pycodestyle,
-
       -- python (ruff)
       null_ls.builtins.diagnostics.ruff,
       null_ls.builtins.formatting.ruff,
