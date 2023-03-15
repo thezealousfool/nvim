@@ -124,7 +124,7 @@ function M:setup()
   local lspconfig = require("lspconfig")
   local _common_capabilities = M:common_capabilities()
   local lsp_servers = {
-    clangd = {
+    ccls = {
       on_attach = M.on_attach,
       flags = M.lsp_flags,
       capabilities = _common_capabilities,
