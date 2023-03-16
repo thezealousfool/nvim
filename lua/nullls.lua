@@ -20,9 +20,6 @@ function M:setup()
       null_ls.builtins.diagnostics.ruff,
       null_ls.builtins.formatting.ruff,
 
-      -- c (clang-format)
-      null_ls.builtins.formatting.clang_format,
-
       -- rust
       null_ls.builtins.formatting.rustfmt,
 

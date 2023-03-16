@@ -164,6 +164,13 @@ function M:load()
     }
 
     use { "alexghergh/nvim-tmux-navigation" }
+    
+    use {
+      "junegunn/vim-easy-align",
+      config = function()
+        vim.keymap.set("x", "a", ":EasyAlign")
+      end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
