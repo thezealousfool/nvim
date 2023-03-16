@@ -29,7 +29,6 @@ local function snippets()
     ]], {})),
 
   })
-
 end
 
 snippets()
