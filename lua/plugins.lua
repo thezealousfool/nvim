@@ -35,7 +35,7 @@ function M:load()
           comment = "italic",
         },
         filter = "spectrum",
-        background_clear = { "telescope", },
+        background_clear = { "telescope", "toggleterm" },
         override = function(c)
           return {
             ColorColumn = { bg = c.base.dimmed3 },
@@ -189,6 +189,28 @@ function M:load()
 
     -- Buffer closing
     use { "ojroques/nvim-bufdel" }
+
+    -- Terminal
+    use {
+      "akinsho/toggleterm.nvim",
+      config = function()
+        require("toggleterm").setup({
+          direction = "float",
+        })
+
+        vim.keymap.set("n", "<leader>t", require("toggleterm").toggle_command)
+        vim.keymap.set(
+          "n", "<leader>gg",
+          function()
+            local lazygit = require("toggleterm.terminal").Terminal:new({
+              cmd = "lazygit",
+              hidden = true,
+            })
+            lazygit:toggle()
+          end
+        )
+      end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
