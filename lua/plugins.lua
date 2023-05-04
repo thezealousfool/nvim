@@ -29,12 +29,18 @@ function M:load()
     -- Colorscheme
     use { "loctvl842/monokai-pro.nvim", config = function()
       require("monokai-pro").setup({
+        transparent_background = false,
         terminal_colors = true,
         styles = {
           comment = "italic",
         },
         filter = "spectrum",
-        background_clear = { "float_win" },
+        background_clear = { "telescope", },
+        override = function(c)
+          return {
+            ColorColumn = { bg = c.base.dimmed3 },
+          }
+        end,
       })
       vim.cmd("colorscheme monokai-pro")
     end }
