@@ -27,17 +27,16 @@ function M:load()
     use "wbthomason/packer.nvim" -- packer can manage itself
 
     -- Colorscheme
-    use { "EdenEast/nightfox.nvim", config = function()
-      require("nightfox").setup({
-        options = {
-          dim_inactive = true,
-          styles = {
-            comments = "italic",
-            functions = "italic",
-          },
-        }
+    use { "loctvl842/monokai-pro.nvim", config = function()
+      require("monokai-pro").setup({
+        terminal_colors = true,
+        styles = {
+          comment = "italic",
+        },
+        filter = "spectrum",
+        background_clear = { "float_win" },
       })
-      vim.cmd("colorscheme nightfox")
+      vim.cmd("colorscheme monokai-pro")
     end }
 
     -- Treesitter interface
