@@ -152,12 +152,22 @@ function M:load()
     use {
       "kevinhwang91/nvim-ufo",
       event = { "BufRead" },
-      requires = "kevinhwang91/promise-async",
+      requires = { "kevinhwang91/promise-async", "luukvbaal/statuscol.nvim" },
       config = function()
         require("ufo").setup()
 
         vim.keymap.set("n", "zR", require("ufo").openAllFolds)
         vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+        local builtin = require("statuscol.builtin")
+        require("statuscol").setup({
+          relculright = true,
+          segments = {
+            { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+            { text = { "%s" }, click = "v:lua.ScSa" },
+            { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+          },
+        })
       end
     }
 
