@@ -209,6 +209,7 @@ function M:load()
             lazygit:toggle()
           end
         )
+        vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
       end
     }
 
