@@ -26,20 +26,6 @@ function M:setup()
       ["<C-e>"] = cmp.mapping.abort(),
       ["<Esc>"] = cmp.mapping.abort(),
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
-      ["<C-n>"] = cmp.mapping(function(fallback)
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<C-p>"] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
