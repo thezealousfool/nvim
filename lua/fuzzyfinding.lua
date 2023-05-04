@@ -50,16 +50,16 @@ function M.setup()
         "--smart-case",
         "--trim"
       },
+      sorting_strategy = "ascending",
       layout_config = {
         width = 0.8,
         preview_cutoff = 120,
         horizontal = {
+          prompt_position = "top",
           preview_width = function(_, cols, _)
             return math.floor(cols * 0.6)
           end,
-          mirror = false,
         },
-        vertical = { mirror = false },
       },
     },
     pickers = {
