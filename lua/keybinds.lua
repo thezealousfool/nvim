@@ -52,7 +52,7 @@ function M:load()
   if status_ok then
     vim.keymap.set("n", "<leader>f", telescope.find_files, opts)
     vim.keymap.set("n", "<leader>b", function()
-      telescope.buffers({
+     telescope.buffers({
         ignore_current_buffer = true,
         sort_mru = true,
       })
@@ -74,6 +74,7 @@ function M:load()
     end, opts)
     vim.keymap.set("n", "<leader>gs", telescope.git_status, opts)
     vim.keymap.set("n", "<leader>ls", telescope.lsp_document_symbols, opts)
+    vim.keymap.set("n", "<leader>lr", telescope.lsp_references, opts)
   end
 end
 
