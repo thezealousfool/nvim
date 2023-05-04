@@ -177,6 +177,9 @@ function M:load()
       end
     }
 
+    -- Buffer closing
+    use { "ojroques/nvim-bufdel" }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if Packer_bootstrap then

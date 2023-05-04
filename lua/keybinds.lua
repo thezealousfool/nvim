@@ -31,8 +31,7 @@ function M:load()
   vim.g.mapleader = " "
 
   vim.keymap.set("n", "<leader>w", "<cmd> w<cr>", opts)
-  vim.keymap.set("n", "<leader>q", "<cmd> q<cr>", opts)
-  vim.keymap.set("n", "<leader>c", "<cmd> bd<cr>", opts)
+  vim.keymap.set("n", "<leader>q", "<cmd> BufDel<cr>", opts)
 
   vim.keymap.set({"n", "i"}, "<up>", "<nop>", opts)
   vim.keymap.set({"n", "i"}, "<down>", "<nop>", opts)
