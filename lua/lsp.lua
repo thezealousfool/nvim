@@ -1,23 +1,3 @@
-local function highlighting(client, bufn)
-  if client.server_capabilities.documentHighlightProvider then
-    local lsp_highlight_grp = vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
-    vim.api.nvim_create_autocmd("CursorHold", {
-      callback = function()
-        vim.schedule(vim.lsp.buf.document_highlight)
-      end,
-      group = lsp_highlight_grp,
-      buffer = bufn,
-    })
-    vim.api.nvim_create_autocmd("CursorMoved", {
-      callback = function()
-        vim.schedule(vim.lsp.buf.clear_references)
-      end,
-      group = lsp_highlight_grp,
-      buffer = bufn,
-    })
-  end
-end
-
 local function lsp_handlers()
   local diagnostics = {
     Error = "x",
@@ -92,7 +72,6 @@ local M = {}
 function M.on_attach(client, bufn)
   vim.api.nvim_buf_set_option(bufn, "omnifunc", "v:lua.vim.lsp.omnifunc")
   _G.lsp_keymaps(bufn)
-  highlighting(client, bufn)
   formatting(client, bufn)
 end
 
@@ -103,7 +82,6 @@ function M:common_capabilities()
   else
     print("cmp_nvim_lsp not found")
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.offsetEncoding = { "utf-16" }
     capabilities.textDocument.completion.completionItem.snippetSupport = true
     capabilities.textDocument.completion.completionItem.resolveSupport = {
       properties = {
@@ -124,7 +102,8 @@ function M:setup()
   local lspconfig = require("lspconfig")
   local _common_capabilities = M:common_capabilities()
   local lsp_servers = {
-    ccls = {
+    clangd = {
+      cmd = { "clangd", "--background-index", "--clang-tidy" },
       on_attach = M.on_attach,
       flags = M.lsp_flags,
       capabilities = _common_capabilities,

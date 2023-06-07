@@ -17,6 +17,7 @@ _G.lsp_keymaps = function(bufn)
   vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, bufopts)
+  vim.keymap.set('v', 'lf', vim.lsp.buf.format, bufopts)
 end
 
 _G.project_keybinds = function()
