@@ -2,10 +2,7 @@
 local Path = require("plenary.path")
 
 local function sputnik()
-  local null_ls = require("null-ls")
-  if null_ls.is_registered({ name = "clang_format" }) then
-    null_ls.deregister({ name = "clang_format" })
-  end
+  vim.g.prevent_autoformat = true
 end
 
 local M = {}

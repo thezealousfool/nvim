@@ -48,6 +48,9 @@ local function lsp_handlers()
 end
 
 local function formatting(client, bufnr)
+  if vim.g.prevent_autoformat then
+    return
+  end
   if client.name ~= "null-ls" then
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
