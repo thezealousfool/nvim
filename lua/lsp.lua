@@ -51,13 +51,13 @@ local function formatting(client, bufnr)
   if vim.g.prevent_autoformat then
     return
   end
-  if client.name ~= "null-ls" then
+  if client.name ~= "efm" then
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
     return
   end
   if not client.server_capabilities.documentFormattingProvider then
-    print("Formatting not supported")
+    print("Formatting not supported", client.name)
     return
   end
   local lsp_format_grp = vim.api.nvim_create_augroup("LspFormat", { clear = true })
@@ -105,8 +105,22 @@ function M:setup()
   local lspconfig = require("lspconfig")
   local _common_capabilities = M:common_capabilities()
   local lsp_servers = {
+    efm = {
+      cmd = { "efm-langserver" },
+      on_attach = M.on_attach,
+      flags = M.lsp_flags,
+      capabilities = _common_capabilities,
+      init_options = {
+        documentFormatting = true,
+        documentRangeFormatting = true,
+        hover = true,
+        documentSymbol = true,
+        codeAction = true,
+        completion = true,
+      },
+    },
     clangd = {
-      cmd = { "clangd", "--background-index", "--clang-tidy" },
+      cmd = { "clangd", "--background-index", "--enable-config", "--clang-tidy" },
       on_attach = M.on_attach,
       flags = M.lsp_flags,
       capabilities = _common_capabilities,

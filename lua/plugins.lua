@@ -63,12 +63,6 @@ function M:load()
             require("lsp"):setup()
           end
         },
-        {
-          "jose-elias-alvarez/null-ls.nvim",
-          config = function()
-            require("nullls"):setup()
-          end
-        },
         -- Snippets
         { "L3MON4D3/LuaSnip",
           config = function()
