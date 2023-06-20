@@ -1,8 +1,8 @@
 -- only in lsp buffers
 _G.lsp_keymaps = function(bufn)
   local opts = { noremap = true, silent = true }
-  vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
   local status_ok, telescope = pcall(require, "telescope.builtin")
   if status_ok then
     vim.keymap.set("n", "<leader>dl", telescope.diagnostics, opts)
