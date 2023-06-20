@@ -213,6 +213,19 @@ function M:load()
       end
     }
 
+    -- Highlight commonly used keywords
+    use {
+      "folke/todo-comments.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = function()
+        local todo = require("todo-comments")
+        todo.setup()
+        vim.keymap.set("n", "<leader>?", ":TodoTelescope keywords=TODO,FIX<enter>")
+        vim.keymap.set("n", "]t", function() todo.jump_next() end)
+        vim.keymap.set("n", "[t", function() todo.jump_prev() end)
+      end
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if Packer_bootstrap then
