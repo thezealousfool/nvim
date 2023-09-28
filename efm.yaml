@@ -7,6 +7,8 @@ root-markers:
   - setup.py
   - requirements.txt
   - requirements.pip
+  - Cargo.toml
+  - Cargo.lock
 lint-debounce: 1s
 format-debounce: 0.1s
 
@@ -48,6 +50,10 @@ tools:
       E: E
       F: E
 
+  rust-rustfmt: &rust-rustfmt
+    format-command: 'rustfmt -q --emit=stdout'
+    format-stdin: true
+
 languages:
   python:
     - <<: *python-ruff
@@ -57,3 +63,5 @@ languages:
   c:
     - <<: *c-clang-format
     - <<: *c-cpp-check
+  rust:
+    - <<: *rust-rustfmt

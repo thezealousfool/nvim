@@ -146,11 +146,6 @@ function M:setup()
         ["rust-analyzer"] = {}
       }
     },
-    zls = {
-      on_attach = M.on_attach,
-      flags = M.lsp_flags,
-      capabilities = _common_capabilities,
-    },
     tsserver = {
       on_attach = M.on_attach,
       flags = M.lsp_flags,
