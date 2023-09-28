@@ -220,6 +220,15 @@ function M:load()
       end
     }
 
+    -- Highlight and trimming whitespace
+    use {
+      'johnfrankmorgan/whitespace.nvim',
+      config = function ()
+        require('whitespace-nvim').setup({})
+        vim.keymap.set('n', '<Leader>cw', require('whitespace-nvim').trim)
+      end
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if Packer_bootstrap then
