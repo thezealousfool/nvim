@@ -26,3 +26,7 @@ for k, v in pairs(options) do
 end
 
 vim.g.mapleader = " "
+
+local keymap = vim.keymap.set
+keymap("n", "<leader>w", "<cmd>w<CR>")
+keymap("n", "<leader>q", "<cmd>q<CR>")
