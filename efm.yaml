@@ -58,6 +58,10 @@ tools:
     format-command: 'shfmt -i 2 -ci -'
     format-stdin: true
 
+  lua-stylua: &lua-stylua
+    format-command: 'stylua --color Never ${--range-start=charStart} ${--range-end=charEnd} ${--stdin-filepath=INPUT} -'
+    format-stdin: true
+
 languages:
   python:
     - <<: *python-ruff
@@ -71,3 +75,5 @@ languages:
     - <<: *rust-rustfmt
   sh:
     - <<: *sh-shfmt
+  lua:
+    - <<: *lua-stylua
