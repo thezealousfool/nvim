@@ -54,6 +54,10 @@ tools:
     format-command: 'rustfmt -q --emit=stdout'
     format-stdin: true
 
+  sh-shfmt: &sh-shfmt
+    format-command: 'shfmt -i 2 -ci -'
+    format-stdin: true
+
 languages:
   python:
     - <<: *python-ruff
@@ -65,3 +69,5 @@ languages:
     - <<: *c-cpp-check
   rust:
     - <<: *rust-rustfmt
+  sh:
+    - <<: *sh-shfmt
