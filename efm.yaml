@@ -1,0 +1,67 @@
+version: 2
+log-file: /Users/vivekroy/.local/state/efm.log
+log-level: 5
+root-markers:
+  - .git/
+  - pyproject.toml
+  - setup.py
+  - requirements.txt
+  - requirements.pip
+  - Cargo.toml
+  - Cargo.lock
+lint-debounce: 1s
+format-debounce: 0.1s
+
+tools:
+  c-clang-format: &c-clang-format
+    format-command: 'clang-format ${INPUT} ${--offset=charStart} ${--length=charEnd-charStart}'
+    format-stdin: true
+
+  c-cpp-check: &c-cpp-check
+    lint-command: 'cppcheck -q --enable=warning,style,performance,portability,information,missingInclude --error-exitcode=1 --check-level=exhaustive ${INPUT}'
+    lint-stdin: false
+    lint-formats:
+      - '%f:%l:%c:%t:%m'
+    lint-offset-columns: 1
+
+  python-ruff: &python-ruff
+    format-command: 'black --quiet -'
+    format-stdin: true
+
+  python-isort: &python-isort
+    format-command: 'isort --quiet -'
+    format-stdin: true
+
+  python-black: &python-black
+    format-command: 'black --quiet -'
+    format-stdin: true
+
+  python-pylint: &python-pylint
+    lint-command: 'pylint --output-format text --score no --msg-template {path}:{line}:{column}:{C}:{msg} ${INPUT}'
+    lint-stdin: false
+    lint-formats:
+      - '%f:%l:%c:%t:%m'
+    lint-offset-columns: 1
+    lint-category-map:
+      I: H
+      R: I
+      C: I
+      W: W
+      E: E
+      F: E
+
+  rust-rustfmt: &rust-rustfmt
+    format-command: 'rustfmt -q --emit=stdout'
+    format-stdin: true
+
+languages:
+  python:
+    - <<: *python-ruff
+    - <<: *python-isort
+    - <<: *python-black
+    - <<: *python-pylint
+  c:
+    - <<: *c-clang-format
+    - <<: *c-cpp-check
+  rust:
+    - <<: *rust-rustfmt
