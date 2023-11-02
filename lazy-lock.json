@@ -13,7 +13,7 @@
   "nvim-cmp": { "branch": "main", "commit": "51260c02a8ffded8e16162dcf41a23ec90cfba62" },
   "nvim-lspconfig": { "branch": "master", "commit": "d0467b9574b48429debf83f8248d8cee79562586" },
   "nvim-tmux-navigation": { "branch": "main", "commit": "543f090a45cef28156162883d2412fffecb6b750" },
-  "nvim-treesitter": { "branch": "master", "commit": "198015cca117d41e7d1fd404e0cdf3235084749b" },
+  "nvim-treesitter": { "branch": "master", "commit": "1920285ec11654072f14d07258e73ef792ac9005" },
   "plenary.nvim": { "branch": "master", "commit": "50012918b2fc8357b87cff2a7f7f0446e47da174" },
   "telescope-zf-native.nvim": { "branch": "master", "commit": "beb34b6c48154ec117930180f257a5592606d48f" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "7011eaae0ac1afe036e30c95cf80200b8dc3f21a" },

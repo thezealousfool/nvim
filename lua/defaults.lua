@@ -18,7 +18,8 @@ local options = {
   number = true, -- set numbered lines
   shortmess = "atI", -- abbreviate, truncate, disable intro message
   laststatus = 0, -- disable status line
-  ruler = false, -- disable line and column number counters
+  ruler = true, -- line and column number counters
+  fillchars = [[eob: ,fold: ,foldopen:ᐯ,foldsep: ,foldclose:ᐳ]], -- end of buffer and fold chars
 }
 
 for k, v in pairs(options) do
