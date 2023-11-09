@@ -7,6 +7,16 @@ return {
 		{ "<leader>b", "<ESC><cmd>Telescope buffers<CR>" },
 		{ "<leader>gs", "<ESC><cmd>Telescope git_status<CR>" },
 		{ "<leader>sw", "<ESC><cmd>Telescope live_grep<CR>" },
+		{ "<leader>sw", function()
+      vim.cmd('noau normal! "vy"')
+      local text = vim.fn.getreg('v')
+      vim.fn.setreg('v', {})
+
+      text = string.gsub(text, "\n", "")
+      if #text > 0 then
+        require('telescope.builtin').live_grep({ default_text = text })
+      end
+    end, mode = "v" },
 	},
 	cnd = "Telescope",
 	dependencies = { "nvim-lua/plenary.nvim", "natecraddock/telescope-zf-native.nvim" },
