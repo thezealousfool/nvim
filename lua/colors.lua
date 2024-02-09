@@ -33,6 +33,12 @@ local colorscheme = {
 	NormalFloat = {
 		ctermbg = 236,
 	},
+  ColorColumn = {
+		ctermbg = 237,
+  },
+  Folded = {
+		ctermbg = 237,
+  },
 	GitSignsAdd = {
 		ctermbg = nil,
 		ctermfg = 10, -- bright green

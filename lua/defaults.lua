@@ -20,6 +20,7 @@ local options = {
   laststatus = 0, -- disable status line
   ruler = true, -- line and column number counters
   fillchars = [[eob: ,fold: ,foldopen:ᐯ,foldsep: ,foldclose:ᐳ]], -- end of buffer and fold chars
+  colorcolumn = "81",
 }
 
 for k, v in pairs(options) do
