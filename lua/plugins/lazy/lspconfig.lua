@@ -12,10 +12,12 @@ local lsps = {
 		},
 	},
 	{ "clangd", cmd = { "clangd", "--background-index", "--enable-config", "--clang-tidy" } },
-	"pyright",
+  { "pyright", cmd = { "pyright" } },
 	{ "rust_analyzer", cmd = { "rustup", "run", "stable", "rust-analyzer" } },
+  "tsserver",
 	"zls",
 	"bashls",
+  "marksman",
 }
 
 return {

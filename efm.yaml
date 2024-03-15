@@ -9,6 +9,9 @@ root-markers:
   - requirements.pip
   - Cargo.toml
   - Cargo.lock
+  - package.json
+  - yarn.lock
+  - node_modules
 lint-debounce: 1s
 format-debounce: 0.1s
 
@@ -62,6 +65,58 @@ tools:
     format-command: 'stylua --color Never ${--range-start=charStart} ${--range-end=charEnd} ${--stdin-filepath=INPUT} -'
     format-stdin: true
 
+  html-prettier: &html-prettier
+    format-command: 'prettier --parser html'
+    format-stdin: true
+
+  css-prettier: &css-prettier
+    format-command: 'prettier --parser css'
+    format-stdin: true
+
+  javascript-eslint: &javascript-eslint
+    lint-command: 'eslint -f visualstudio --stdin --stdin-filename ${INPUT}'
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - "%f(%l,%c): %tarning %m"
+      - "%f(%l,%c): %rror %m"
+
+  javascript-prettier: &javascript-prettier
+    format-command: 'prettier --parser javascript'
+    format-stdin: true
+    root-markers:
+      - .prettierrc
+      - .prettierrc.json
+      - .prettierrc.js
+      - .prettierrc.yml
+      - .prettierrc.yaml
+      - .prettierrc.json5
+      - .prettierrc.mjs
+      - .prettierrc.cjs
+      - .prettierrc.toml
+
+  typescript-prettier: &typescript-prettier
+    format-command: 'prettier --parser typescript'
+    format-stdin: true
+    root-markers:
+      - .prettierrc
+      - .prettierrc.json
+      - .prettierrc.js
+      - .prettierrc.yml
+      - .prettierrc.yaml
+      - .prettierrc.json5
+      - .prettierrc.mjs
+      - .prettierrc.cjs
+      - .prettierrc.toml
+
+  json-jq: &json-jq
+    lint-command: 'jq .'
+    format-stdin: true
+
+  json-prettier: &json-prettier
+    format-command: 'prettier --parser json'
+    format-stdin: true
+
 languages:
   python:
     - <<: *python-ruff
@@ -77,3 +132,22 @@ languages:
     - <<: *sh-shfmt
   lua:
     - <<: *lua-stylua
+  html:
+    - <<: *html-prettier
+  css:
+    - <<: *css-prettier
+  javascript:
+    - <<: *javascript-eslint
+    - <<: *javascript-prettier
+  typescriptreact:
+    - <<: *javascript-eslint
+    - <<: *typescript-prettier
+  typescript:
+    - <<: *javascript-eslint
+    - <<: *typescript-prettier
+  json:
+    - <<: *json-jq
+    - <<: *json-prettier
+  jsonc:
+    - <<: *json-jq
+    - <<: *json-prettier
