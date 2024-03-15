@@ -33,12 +33,12 @@ local colorscheme = {
 	NormalFloat = {
 		ctermbg = 236,
 	},
-  ColorColumn = {
+	ColorColumn = {
 		ctermbg = 237,
-  },
-  Folded = {
+	},
+	Folded = {
 		ctermbg = 237,
-  },
+	},
 	GitSignsAdd = {
 		ctermbg = nil,
 		ctermfg = 10, -- bright green
@@ -51,23 +51,51 @@ local colorscheme = {
 		ctermbg = nil,
 		ctermfg = 9, -- bright red
 	},
+	GitSignsChangedelete = {
+		ctermbg = nil,
+		ctermfg = 9, -- bright red
+	},
+	GitSignsAddPreview = {
+		ctermbg = nil,
+		ctermfg = 10, -- bright green
+	},
+	GitSignsDeletePreview = {
+		ctermbg = nil,
+		ctermfg = 9, -- bright red
+	},
+	DiffAdd = {
+		ctermbg = nil,
+		ctermfg = 10, -- bright green
+	},
+	DiffChange = {
+		ctermbg = nil,
+		ctermfg = 12, -- bright blue
+	},
+	DiffDelete = {
+		ctermbg = nil,
+		ctermfg = 9, -- bright red
+	},
+	DiffText = {
+		ctermbg = nil,
+		ctermfg = 9, -- bright red
+	},
 	Comment = {
-		ctermfg = 239, -- grey
+		ctermfg = 243, -- grey
 	},
 	Function = {
 		ctermfg = 2, -- green
 		cterm = { bold },
 	},
-  Identifier = {
-    ctermfg = nil,
-    cterm = { standout },
-  },
+	Identifier = {
+		ctermfg = nil,
+		cterm = { standout },
+	},
 	Type = {
 		ctermfg = 4, -- blue
 	},
-  String = {
-    ctermfg = 3, -- yellow
-  },
+	String = {
+		ctermfg = 3, -- yellow
+	},
 }
 
 if vim.g.colors_name then
