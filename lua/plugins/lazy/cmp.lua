@@ -53,16 +53,28 @@ return {
 			},
 		})
 
+		local send_keys_to_nvim = function(string)
+			local keys = vim.api.nvim_replace_termcodes(string, true, false, true)
+			if vim.api.nvim_get_mode().mode == "niI" then
+				return vim.cmd("normal " .. keys)
+			end
+			return vim.api.nvim_feedkeys(keys, "n", false)
+		end
+
 		local map = vim.keymap.set
 		map("n", "c<Tab>", luasnip.unlink_current, {})
 		map("n", "<Tab>", function()
 			if luasnip.locally_jumpable(1) then
 				luasnip.jump(1)
+			else
+				send_keys_to_nvim("<Tab>")
 			end
 		end, {})
 		map("n", "<S-Tab>", function()
 			if luasnip.locally_jumpable(-1) then
 				luasnip.jump(-1)
+			else
+				send_keys_to_nvim("<S-Tab>")
 			end
 		end, {})
 	end,
