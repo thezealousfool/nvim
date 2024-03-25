@@ -5,7 +5,7 @@ local colorscheme = {
 		ctermbg = 0,
 	},
 	CursorLine = {
-		ctermbg = 237,
+		ctermbg = 234,
 	},
 	LineNr = {
 		ctermfg = 240,
