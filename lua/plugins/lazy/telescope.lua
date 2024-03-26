@@ -36,7 +36,7 @@ return {
 			mode = "v",
 		},
 	},
-	cnd = "Telescope",
+	cmd = "Telescope",
 	dependencies = { "nvim-lua/plenary.nvim", "natecraddock/telescope-zf-native.nvim" },
 	config = function()
 		local telescope = require("telescope")

@@ -2,7 +2,7 @@ return {
 	"folke/todo-comments.nvim",
 	lazy = true,
 	event = { "BufRead" },
-	requires = { "nvim-lua/plenary.nvim" },
+	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
 		local todo = require("todo-comments")
 		todo.setup()
