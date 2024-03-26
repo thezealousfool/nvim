@@ -32,3 +32,5 @@ vim.g.mapleader = " "
 local keymap = vim.keymap.set
 keymap("n", "<leader>w", "<cmd>w<CR>")
 keymap("n", "<leader>q", "<cmd>q<CR>")
+
+vim.filetype.add({ extension = { typ = "typst" } })
