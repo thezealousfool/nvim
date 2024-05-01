@@ -98,16 +98,10 @@ local colorscheme = {
 	},
 }
 
-if vim.g.colors_name then
-	vim.cmd([[hi clear]])
-end
+vim.cmd([[highlight clear]])
 
 vim.g.colors_name = "vvk"
 
-local highlight = function(group, hlValue)
-	vim.api.nvim_set_hl(0, group, hlValue)
-end
-
 for k, v in pairs(colorscheme) do
-	highlight(k, v)
+	vim.api.nvim_set_hl(0, k, v)
 end

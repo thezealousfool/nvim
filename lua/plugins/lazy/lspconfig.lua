@@ -48,7 +48,7 @@ return {
 			keymap("n", "<leader>lf", vim.lsp.buf.format, opts)
 			keymap("n", "<leader>ls", "<cmd>Telescope lsp_document_symbols<CR>", opts)
 			if client.name ~= "efm" then
-				client.resolved_capabilities.document_formatting = false
+				client.capabilities.document_formatting = false
 			end
 		end
 
