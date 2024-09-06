@@ -28,30 +28,23 @@ tools:
     lint-offset-columns: 1
 
   python-ruff: &python-ruff
-    format-command: 'black --quiet -'
-    format-stdin: true
-
-  python-isort: &python-isort
-    format-command: 'isort --quiet -'
-    format-stdin: true
-
-  python-black: &python-black
-    format-command: 'black --quiet -'
-    format-stdin: true
-
-  python-pylint: &python-pylint
-    lint-command: 'pylint --output-format text --score no --msg-template {path}:{line}:{column}:{C}:{msg} ${INPUT}'
-    lint-stdin: false
+    lint-command: 'ruff check --stdin-filename ${INPUT} --output-format concise --quiet -'
+    lint-stdin: true
     lint-formats:
       - '%f:%l:%c:%t:%m'
-    lint-offset-columns: 1
-    lint-category-map:
-      I: H
-      R: I
-      C: I
-      W: W
-      E: E
-      F: E
+    format-command: 'ruff format --stdin-filename ${INPUT} --quiet -'
+    format-stdin: true
+
+  python-ruff-sort: &python-ruff-sort
+    format-command: 'ruff check --select I --fix --stdin-filename ${INPUT} --quiet -'
+    format-stdin: true
+
+  toml-taplo: &toml-taplo
+    format-command: 'taplo format --stdin-filepath ${INPUT} -'
+    format-stdin: true
+    lint-command: 'taplo check ${INPUT}'
+    lint-stdin: false
+    lint-ignore-exit-code: true
 
   rust-rustfmt: &rust-rustfmt
     format-command: 'rustfmt -q --emit=stdout'
@@ -120,9 +113,9 @@ tools:
 languages:
   python:
     - <<: *python-ruff
-    - <<: *python-isort
-    - <<: *python-black
-    - <<: *python-pylint
+    - <<: *python-ruff-sort
+  toml:
+    - <<: *toml-taplo
   c:
     - <<: *c-clang-format
     - <<: *c-cpp-check
