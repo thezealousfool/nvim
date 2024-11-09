@@ -27,6 +27,10 @@ tools:
       - '%f:%l:%c:%t:%m'
     lint-offset-columns: 1
 
+  swift-format: &swift-format
+    format-command: 'swift-format format -i --assume-filename ${INPUT}'
+    format-stdin: true
+
   python-ruff: &python-ruff
     lint-command: 'ruff check --stdin-filename ${INPUT} --output-format concise --quiet -'
     lint-stdin: true

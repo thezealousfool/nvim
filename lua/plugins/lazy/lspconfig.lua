@@ -14,6 +14,7 @@ local lsps = {
 	{ "clangd", cmd = { "clangd", "--background-index", "--enable-config", "--clang-tidy" } },
   { "pyright", cmd = { "pyright" } },
 	{ "rust_analyzer", cmd = { "rustup", "run", "stable", "rust-analyzer" } },
+  "sourcekit",
   "ts_ls",
 	"zls",
 	"bashls",
