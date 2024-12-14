@@ -1,3 +1,54 @@
+function live_multigrep(opts)
+	opts = opts or {}
+	opts.cwd = opts.cwd or vim.uv.cwd()
+
+	local pickers = require("telescope.pickers")
+	local finders = require("telescope.finders")
+	local make_entry = require("telescope.make_entry")
+	local conf = require("telescope.config").values
+
+	local finder = finders.new_async_job({
+		command_generator = function(prompt)
+			if not prompt or prompt == "" then
+				return nil
+			end
+
+			local pieces = vim.split(prompt, "  ")
+			local args = {
+				"rg",
+				"--color=never",
+				"--no-heading",
+				"--with-filename",
+				"--line-number",
+				"--column",
+				"--smart-case",
+				"--trim",
+			}
+			if pieces[1] then
+				table.insert(args, "-e")
+				table.insert(args, pieces[1])
+			end
+			if pieces[2] then
+				table.insert(args, "-g")
+				table.insert(args, pieces[2])
+			end
+			return args
+		end,
+		entry_maker = make_entry.gen_from_vimgrep(opts),
+		cwd = opts.cwd,
+	})
+
+	pickers
+		.new(opts, {
+			finder = finder,
+			prompt_title = "Multi Grep",
+			debounce = 200,
+			previewer = conf.grep_previewer(opts),
+			sorter = require("telescope.sorters").empty(),
+		})
+		:find()
+end
+
 return {
 	"nvim-telescope/telescope.nvim",
 	branch = "0.1.x",
@@ -9,8 +60,7 @@ return {
 		{
 			"<leader>sw",
 			function()
-				local telescope = require("telescope.builtin")
-				telescope.live_grep()
+				live_multigrep()
 			end,
 			mode = "n",
 		},
@@ -26,12 +76,7 @@ return {
 					text = nil
 				end
 
-				local telescope = require("telescope.builtin")
-				if text then
-					telescope.grep_string({ search = text })
-				else
-					telescope.live_grep()
-				end
+				live_multigrep({ default_text = text, initial_mode = "normal" })
 			end,
 			mode = "v",
 		},
