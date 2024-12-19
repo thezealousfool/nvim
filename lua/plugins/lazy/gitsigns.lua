@@ -17,7 +17,7 @@ return {
 				vim.keymap.set("n", "<leader>hu", gs.undo_stage_hunk)
 				vim.keymap.set("n", "<leader>hd", gs.preview_hunk)
 				vim.keymap.set("n", "<leader>gb", gs.toggle_current_line_blame)
-				vim.keymap.set("n", "<leader>gB", gs.blame_line)
+				vim.keymap.set("n", "<leader>gB", gs.blame)
 				vim.keymap.set("n", "]c", function()
 					if vim.wo.diff then
 						return "]c"

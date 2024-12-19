@@ -50,6 +50,10 @@ tools:
     lint-stdin: false
     lint-ignore-exit-code: true
 
+  toml-taplo: &toml-taplo
+    format-command: "taplo fmt --stdin-filename ${INPUT} -"
+    format-stdin: true
+
   rust-rustfmt: &rust-rustfmt
     format-command: 'rustfmt -q --emit=stdout'
     format-stdin: true

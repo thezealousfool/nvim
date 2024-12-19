@@ -7,6 +7,7 @@ return {
 				["<C-v>"] = "actions.select_vsplit",
         ["-"] = "actions.parent",
         ["<CR>"] = "actions.select",
+        ["g."] = "actions.toggle_hidden",
 			},
       use_default_keymaps = false,
 		})

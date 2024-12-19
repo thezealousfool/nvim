@@ -11,14 +11,15 @@ local lsps = {
 			completion = true,
 		},
 	},
-	{ "clangd", cmd = { "clangd", "--background-index", "--enable-config", "--clang-tidy" } },
-  { "pyright", cmd = { "pyright" } },
+	{ "clangd", cmd = { "clangd-17", "--background-index", "--enable-config" } },
+	{ "pyright", cmd = { "pyright-langserver", "--stdio" } },
 	{ "rust_analyzer", cmd = { "rustup", "run", "stable", "rust-analyzer" } },
-  "sourcekit",
-  "ts_ls",
+	{ "sourcekit", cmd = { "sourcekit-lsp" }, filetypes = { "swift" } },
+	{ "ts_ls", filetypes = { "javascript", "typescript" } },
+	{ "gopls", filetypes = { "go" } },
 	"zls",
 	"bashls",
-  "marksman",
+	"marksman",
 }
 
 return {
