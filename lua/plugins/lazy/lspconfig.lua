@@ -11,7 +11,7 @@ local lsps = {
 			completion = true,
 		},
 	},
-	{ "clangd", cmd = { "clangd-17", "--background-index", "--enable-config" } },
+	{ "clangd", cmd = { "clangd", "--background-index", "--enable-config" } },
 	{ "pyright", cmd = { "pyright-langserver", "--stdio" } },
 	{ "rust_analyzer", cmd = { "rustup", "run", "stable", "rust-analyzer" } },
 	{ "sourcekit", cmd = { "sourcekit-lsp" }, filetypes = { "swift" } },
