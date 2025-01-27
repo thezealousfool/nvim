@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"nvim-neotest/nvim-nio",
-		"ldelossa/nvim-dap-projects",
+		"stevearc/overseer.nvim",
 	},
 	keys = {
 		{
@@ -16,18 +16,17 @@ return {
 		{
 			"<leader>ds",
 			function()
-				require("nvim-dap-projects").search_project_config()
 				require("dap").continue()
 			end,
 			desc = "Start/Continue",
 		},
-    {
+		{
 			"<leader>dc",
 			function()
 				require("dap").run_to_cursor()
 			end,
 			desc = "Run to cursor",
-    },
+		},
 		{
 			"<leader>dJ",
 			function()
@@ -80,6 +79,13 @@ return {
 		{
 			"<leader>dr",
 			function()
+				require("overseer").run_template()
+			end,
+			desc = "Restart",
+		},
+		{
+			"<leader>dR",
+			function()
 				require("dap").restart()
 			end,
 			desc = "Restart",
@@ -91,6 +97,13 @@ return {
 			end,
 			desc = "Quit",
 		},
+		{
+			"<leader>di",
+			function()
+				require("dap.ui.widgets").hover()
+			end,
+			desc = "Widgets",
+		},
 	},
 
 	config = function()
@@ -99,6 +112,7 @@ return {
 
 		vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
+		require("overseer").setup()
 		dapui.setup()
 
 		dap.listeners.before.attach.dapui_config = function()
@@ -113,5 +127,11 @@ return {
 		dap.listeners.before.event_exited.dapui_config = function()
 			dapui.close()
 		end
+
+		dap.adapters.lldb = {
+			type = "executable",
+			command = "lldb-dap",
+			name = "lldb",
+		}
 	end,
 }
