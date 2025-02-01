@@ -3,7 +3,6 @@ return {
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"nvim-neotest/nvim-nio",
-		"stevearc/overseer.nvim",
 	},
 	keys = {
 		{
@@ -77,13 +76,6 @@ return {
 			desc = "Step Over",
 		},
 		{
-			"<leader>dr",
-			function()
-				require("overseer").run_template()
-			end,
-			desc = "Restart",
-		},
-		{
 			"<leader>dR",
 			function()
 				require("dap").restart()
@@ -112,7 +104,6 @@ return {
 
 		vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-		require("overseer").setup()
 		dapui.setup()
 
 		dap.listeners.before.attach.dapui_config = function()
