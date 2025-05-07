@@ -42,6 +42,23 @@ vim.g.clipboard = {
   },
 }
 
+if vim.env.TMUX ~= nil then
+  local copy = {'tmux', 'load-buffer', '-w', '-'}
+  local paste = {'bash', '-c', 'tmux refresh-client -l && sleep 0.05 && tmux save-buffer -'}
+  vim.g.clipboard = {
+    name = 'tmux',
+    copy = {
+      ['+'] = copy,
+      ['*'] = copy,
+    },
+    paste = {
+      ['+'] = paste,
+      ['*'] = paste,
+    },
+    cache_enabled = 0,
+  }
+end
+
 local keymap = vim.keymap.set
 keymap("n", "<leader>w", "<cmd>w<CR>")
 keymap("n", "<leader>q", "<cmd>q<CR>")
