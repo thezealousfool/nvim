@@ -1,14 +1,14 @@
 local options = {
-	undofile = true, -- persistent undo
-	swapfile = false, -- create swapfiles
-	wrap = false, -- line wrapping
-	expandtab = true, -- convert tabs to spaces
-	shiftwidth = 2, -- spaces for each indentation
-	tabstop = 2, -- 2 spaces for a tab
+  undofile = true, -- persistent undo
+  swapfile = false, -- create swapfiles
+  wrap = false, -- line wrapping
+  expandtab = true, -- convert tabs to spaces
+  shiftwidth = 2, -- spaces for each indentation
+  tabstop = 2, -- 2 spaces for a tab
   showmode = false, -- we do not need to see things like -- INSERT -- anymore
   ignorecase = true, -- ignore case in search patterns
-	smartcase = true, -- smart case
-	smartindent = true, -- indent from context
+  smartcase = true, -- smart case
+  smartindent = true, -- indent from context
   clipboard = "unnamedplus", -- use system clipboard
   hidden = true, -- required to keep multiple buffers and open multiple buffers
   hlsearch = true, -- highlight all matches on previous search pattern
@@ -25,7 +25,7 @@ local options = {
 }
 
 for k, v in pairs(options) do
-	vim.opt[k] = v
+  vim.opt[k] = v
 end
 
 vim.g.mapleader = " "
@@ -62,5 +62,21 @@ end
 local keymap = vim.keymap.set
 keymap("n", "<leader>w", "<cmd>w<CR>")
 keymap("n", "<leader>q", "<cmd>q<CR>")
+keymap("n", "~", function()
+  local path = vim.fn.expand('<cfile>')
+  local len = string.len(path)
+  if(len < 1) then return end
+  if(string.sub(path, 1, 1) == "/") then return end
+  local file_path = vim.fn.expand('%:<sfile>')
+  local cwd = string.gsub(file_path, "^(.+/)[^/]+$", "%1")
+  local cwd_len = string.len(cwd)
+  if(cwd_len < 1) then return end
+  local abspath = vim.system({"realpath", "-q", cwd .. path}, { text = true }):wait()
+  if(abspath.code == 0) then
+    vim.cmd(":s/" ..
+    	path:gsub("/", "\\/"):gsub("%.", "\\."):gsub("%*", "\\*") .. "/" ..
+	    abspath.stdout:gsub("/", "\\/"):gsub("%.", "\\."):gsub("%*", "\\*") .. "/")
+  end
+end)
 
 vim.filetype.add({ extension = { typ = "typst" } })
