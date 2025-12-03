@@ -96,6 +96,12 @@ local colorscheme = {
 	String = {
 		ctermfg = 3, -- yellow
 	},
+	BlinkCmpMenu = {
+		ctermbg = 236,
+  },
+  BlinkCmpMenuSelection = {
+		ctermbg = 238,
+  },
 }
 
 vim.cmd([[highlight clear]])

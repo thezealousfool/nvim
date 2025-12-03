@@ -51,7 +51,7 @@ end
 
 return {
 	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x",
+	branch = "master",
 	lazy = true,
 	keys = {
 		{ "<leader>f", "<ESC><cmd>Telescope find_files<CR>" },

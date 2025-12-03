@@ -1,81 +1,65 @@
 return {
-	"hrsh7th/nvim-cmp",
-	lazy = true,
-	event = "InsertEnter",
-	dependencies = {
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"L3MON4D3/LuaSnip",
-		"saadparwaiz1/cmp_luasnip",
-		"rafamadriz/friendly-snippets",
-		"hrsh7th/cmp-nvim-lsp",
-	},
-	config = function()
-		local cmp = require("cmp")
-		local luasnip = require("luasnip")
-
-		require("luasnip.loaders.from_vscode").lazy_load()
-
-		vim.opt.completeopt = "menu,menuone,noselect"
-		cmp.setup({
-			snippet = {
-				expand = function(args)
-					luasnip.lsp_expand(args.body)
-				end,
-			},
-			window = {
-				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
-				border = "rounded",
-			},
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "buffer" },
-				{ name = "path" },
-			}),
-			mapping = cmp.mapping.preset.insert({
-				["<Esc>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({ select = false }),
-				["<Tab>"] = cmp.mapping.select_next_item(),
-				["<S-Tab>"] = cmp.mapping.select_prev_item(),
-			}),
-			formatting = {
-				fields = { "kind", "abbr" },
-				format = function(entry, vim_item)
-					vim_item.kind = ({
-						buffer = "",
-						nvim_lsp = "",
-						luasnip = "󰩫",
-					})[entry.source.name]
-					return vim_item
-				end,
-			},
-		})
-
-		local send_keys_to_nvim = function(string)
-			local keys = vim.api.nvim_replace_termcodes(string, true, false, true)
-			if vim.api.nvim_get_mode().mode == "niI" then
-				return vim.cmd("normal " .. keys)
-			end
-			return vim.api.nvim_feedkeys(keys, "n", false)
-		end
-
-		local map = vim.keymap.set
-		map("n", "c<Tab>", luasnip.unlink_current, {})
-		map("n", "<Tab>", function()
-			if luasnip.locally_jumpable(1) then
-				luasnip.jump(1)
-			else
-				send_keys_to_nvim("<Tab>")
-			end
-		end, {})
-		map("n", "<S-Tab>", function()
-			if luasnip.locally_jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				send_keys_to_nvim("<S-Tab>")
-			end
-		end, {})
-	end,
+    { "L3MON4D3/LuaSnip", keys = {} },
+    {
+      "saghen/blink.cmp",
+      dependencies = {
+          "rafamadriz/friendly-snippets",
+      },
+      version = "*",
+      config = function()
+        require("blink.cmp").setup({
+          snippets = { preset = "luasnip" },
+          signature = { enabled = true },
+          appearance = {
+            use_nvim_cmp_as_default = true,
+            nerd_font_variant = "mono",
+          },
+          sources = {
+            default = { "lsp", "path", "snippets", "buffer" },
+            providers = { cmdline = { min_keyword_length = 2 } },
+          },
+          completion = {
+            accept = {
+              auto_brackets = {
+                enabled = true,
+              },
+            },
+            menu = {
+              border = nil,
+              scrolloff = 1,
+              scrollbar = false,
+              draw = {
+                columns = {
+                  { "kind_icon" },
+                  { "label", "label_description", gap = 1 },
+                  { "kind" },
+                },
+              },
+            },
+            documentation = {
+              window = {
+                border = nil,
+                scrollbar = false,
+                winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc',
+              },
+              auto_show = true,
+              auto_show_delay_ms = 500,
+            },
+          },
+          keymap = { 
+            preset = 'none',
+            ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+            ['<Esc>'] = { 'hide', 'fallback' },
+            ['<CR>'] = { 'accept', 'fallback' },
+            ['<Tab>'] = { 'snippet_forward', 'select_next', 'fallback' },
+            ['<S-Tab>'] = { 'snippet_backward', 'select_prev', 'fallback' },
+            ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+            ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+            ['<Up>'] = { 'select_prev', 'fallback' },
+            ['<Down>'] = { 'select_next', 'fallback' },
+          },
+        })
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
 }
