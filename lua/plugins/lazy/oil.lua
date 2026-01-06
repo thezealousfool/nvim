@@ -18,7 +18,7 @@ return {
 		require("oil").setup({
 			keymaps = {
 				["<C-x>"] = "actions.select_split",
-				["<C-v>"] = "actions.select_vsplit",
+				["<C-c>"] = "actions.select_vsplit",
         ["-"] = "actions.parent",
         ["<CR>"] = "actions.select",
         ["g."] = "actions.toggle_hidden",
