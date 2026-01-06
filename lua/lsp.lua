@@ -1,6 +1,6 @@
 vim.lsp.enable({
   "clangd",
-  "pyrefly",
+  "pyright",
   "efm",
 })
 
