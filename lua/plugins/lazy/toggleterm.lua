@@ -8,6 +8,7 @@ return {
 		require("toggleterm").setup({
 			direction = "float",
 		})
-		vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+		vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
+		vim.keymap.set("t", "<C-Esc>", [[<Esc>]], { noremap = true })
 	end,
 }
